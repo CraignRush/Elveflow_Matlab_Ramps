@@ -9,7 +9,7 @@
 %define here the directory where .m, Dll and this script are 
 addpath('./MATLAB_64\Example');% path for Mathlab"***.m" file
 addpath('./MATLAB_64\DLL64');% path for DLL library
-addpath('../')% path for your script
+addpath('./')% path for your script
 
 %%Always use Elveflow_Load at the begining, it load the DLL
 Elveflow_Load;
@@ -96,8 +96,12 @@ trigger_value=0;
 while (~strcmp(answer,'exit')) %loop until user enter exit
     % get user answer 
     answer='non valid answer to avoid looping indefinitelly';
-    while (~(strcmp(answer,'get pressure')||strcmp(answer,'set pressure')||strcmp(answer,'get everything')||strcmp(answer,'get sensor')||strcmp(answer,'get trigger')||strcmp(answer,'set trigger')||strcmp(answer,'exit')))
-    prompt = '\nChose what to do: get pressure, get sensor, get everything, set pressure, set trigger, get trigger or exit\n';
+    while (~(strcmp(answer,'get pressure')||strcmp(answer,'set pressure')...
+            ||strcmp(answer,'get everything')||strcmp(answer,'get sensor')...
+            ||strcmp(answer,'get trigger')||strcmp(answer,'set trigger')...
+            ||strcmp(answer,'exit')))
+    prompt = ['\nChose what to do: get pressure, get sensor, get'... 
+        'everything, set pressure, set trigger, get trigger or exit\n'];
     answer = input(prompt,'s');
     end
     
