@@ -132,10 +132,14 @@ while (~strcmp(answer,'exit')) %loop until user enter exit
             saturation=input(prompt);
         end
         
-        error = OB1_Get_Press(Inst_ID.Value ,channel_n, 1, Calibration, Press_init, CalibSize);
+        % Get initial pressure to start ramp from
+        error = OB1_Get_Press(Inst_ID.Value ,channel_n, 1, Calibration, Press_init, CalibSize);        
+        CheckError(error);
         
+        % Calculate the final step number 
         step_final = ceil((saturation - Press_init) / steepness);
         
+        % interpolate in 100 ms resolution (TODO test finer) 
         for x = 1:0.1:step_final
             press = steepness * x + Press_init; 
             error = OB1_Set_Press(Inst_ID.Value,channel_n,press,Calibration,CalibSize);
@@ -146,3 +150,18 @@ while (~strcmp(answer,'exit')) %loop until user enter exit
         
     end
 end
+
+%% Closing and freeing memory
+
+error=OB1_Destructor(Inst_ID.Value);%close communication with the instrument
+CheckError(error);
+    
+Elveflow_Unload;% Unload DLL
+
+clear Instrument_Name;
+clear Inst_ID;
+clear MyCalibPath;
+clear Calibration;
+clear Press_Array;
+clear flow_rate;
+clear trigger;
