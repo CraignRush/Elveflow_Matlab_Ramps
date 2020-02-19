@@ -7,9 +7,8 @@
 %%%%%%%%%%%%%%%%%
 
 %define here the directory where .m, Dll and this script are 
-addpath('./MATLAB_64\Example');% path for Mathlab"***.m" file
-addpath('./MATLAB_64\DLL64');% path for DLL library
-addpath('./')% path for your script
+addpath('./MATLAB_64');% path for Matlab"***.m" file
+addpath('./MATLAB_64/DLL64');% path for DLL library
 
 %%Always use Elveflow_Load at the begining, it load the DLL
 Elveflow_Load;

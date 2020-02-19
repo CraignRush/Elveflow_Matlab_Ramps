@@ -3,9 +3,16 @@
 
 %% Device Initialization
 %define here the directory where .m, Dll and this script are
-addpath('./MATLAB_64\Example');% path for Mathlab"***.m" file
-addpath('./MATLAB_64\DLL64');% path for DLL library
+addpath('./MATLAB_64/Example');% path for Mathlab"***.m" file
+addpath('./MATLAB_64/DLL64');% path for DLL library
+addpath('./MATLAB_64');% path for DLL library
 addpath('./')% path for your script
+
+try
+    mex -setup C
+catch
+    error('Compiler does not work properly!');
+end
 
 %%Always use Elveflow_Load at the begining, it load the DLL
 Elveflow_Load;

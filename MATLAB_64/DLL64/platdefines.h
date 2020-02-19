@@ -114,7 +114,9 @@ LabVIEW system options: don't uncomment, the compiler defines these automaticall
 		#define Compiler		kSymanCWin
 	#elif defined(__BORLANDC__) || defined(__BCPLUSPLUS__) || defined(_NI_BC_)
 		#define Compiler		kBorlandC
-	#else
+	#elif defined(__GNUC__)
+		#define Compiler	kGCC
+    #else
 		#error "We don't know the Compiler"
 	#endif
 	#ifdef _M_PPC
