@@ -36,7 +36,7 @@ Calibration = libpointer('doublePtr',ones(CalibSize,1));
 
 %pointer to store the instrument ID (no array)
 Inst_ID=libpointer('int32Ptr',zeros(1,1));
-
+  
 %Initiate the device and all regulators and sensors types (see user
 %guide for help
 error=OB1_Initialization(Instrument_Name,1,2,4,3,Inst_ID);
