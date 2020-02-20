@@ -3,13 +3,19 @@
 
 %% Device Initialization
 %define here the directory where .m, Dll and this script are
-addpath('./MATLAB_64/Example');% path for Mathlab"***.m" file
-addpath('./MATLAB_64/DLL64');% path for DLL library
-addpath('./MATLAB_64');% path for DLL library
+if contains(computer,'64')
+    addpath('./MATLAB_64/Example');% path for Mathlab"***.m" file
+    addpath('./MATLAB_64/MATLAB_64/DLL64');% path for DLL library
+    addpath('./MATLAB_64/MATLAB_64');% path for DLL library
+else
+    addpath('./MATLAB_32/Example');% path for Mathlab"***.m" file
+    addpath('./MATLAB_32/MATLAB_32/DLL32');% path for DLL library
+    addpath('./MATLAB_32/MATLAB_32');% path for DLL library
+end
 addpath('./')% path for your script
 
 try
-    mex -setup C
+    mex -setup C++
 catch
     error('Compiler does not work properly!');
 end
@@ -40,7 +46,7 @@ CheckError(error);
 %error=OB1_Add_Sens(Inst_ID.Value,1,5,1,0,7); %add digital flow sensor. Valid for OB1 MK3+ only, if sensor not detected it will throw an error ;
 %CheckError(error);
 
-%disp(strcat('Instrument ID = ', num2str(Inst_ID.Value)));%show the instrument number
+disp(strcat('Instrument ID = ', num2str(Inst_ID.Value)));%show the instrument number
 
 %% Controller Calibration
 %Chose between new calibration (take about 2 minutes), load calibration or
@@ -140,20 +146,20 @@ while (~strcmp(answer,'exit')) %loop until user enter exit
         end
         
         % Get initial pressure to start ramp from
-        error = OB1_Get_Press(Inst_ID.Value ,channel_n, 1, Calibration, Press_init, CalibSize);        
+        error = OB1_Get_Press(Inst_ID.Value ,channel_n, 1, Calibration, Press_init, CalibSize);
         CheckError(error);
         
-        % Calculate the final step number 
+        % Calculate the final step number
         step_final = ceil((saturation - Press_init) / steepness);
         
-        % interpolate in 100 ms resolution (TODO test finer) 
+        % interpolate in 100 ms resolution (TODO test finer)
         for x = 1:0.1:step_final
-            press = steepness * x + Press_init; 
+            press = steepness * x + Press_init;
             error = OB1_Set_Press(Inst_ID.Value,channel_n,press,Calibration,CalibSize);
             CheckError(error);
             disp(strcat('pressure ch',num2str(channel_n), ' = ' , num2str(Press_value.Value),' mbar'));
             pause(0.09);
-        end      
+        end
         
     end
 end
@@ -162,7 +168,7 @@ end
 
 error=OB1_Destructor(Inst_ID.Value);%close communication with the instrument
 CheckError(error);
-    
+
 Elveflow_Unload;% Unload DLL
 
 clear Instrument_Name;
