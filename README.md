@@ -11,5 +11,5 @@ An simple program to drive ramps with an Elveflow OB1 Pressure controller
 	- Name of Elveflow OB1 as HEX-Number (Can be found via NI MAX)
 	- The NEL Elveflow Device:
 	``` MATLAB
-	Instrument_Name = libpointer('cstring','01C9D9C3');
+	Instrument_Name = libpointer('cstring','01E5A2C4');
 	```

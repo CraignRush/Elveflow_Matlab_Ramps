@@ -28,7 +28,7 @@ answer='empty_string';% store the user answer in this variable
 
 %create equivalent of char[] to communicate with DLL
 %the instrument name can be found in NI Max
-Instrument_Name = libpointer('cstring','01C9D9C3'); %01C9D9C3 is the name of my instrument
+Instrument_Name = libpointer('cstring','01E5A2C4'); %01C9D9C3 is the name of my instrument
 
 %create a pointer for calibrationset
 CalibSize = 1000;
