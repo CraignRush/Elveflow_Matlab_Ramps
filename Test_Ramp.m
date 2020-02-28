@@ -1,6 +1,6 @@
-%% A Simple Script To Drive a Ramp On The OB1 Pressure Controller
+%% A Simple Script To Actuate On The OB1 Pressure Controller
 % 06.11.2019 Johann Brenner
-
+mfilename('fullpath')
 %% Device Initialization
 %define here the directory where .m, Dll and this script are
 if contains(computer,'64')
